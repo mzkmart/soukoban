@@ -1,0 +1,510 @@
+fileFormatVersion: 2
+guid: ab5202e07ef8f4c4498f108276ea6838
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3129923787709736968
+    second: teto_0
+  - first:
+      213: -7979985792199380538
+    second: teto_1
+  - first:
+      213: -8294146919592798734
+    second: teto_2
+  - first:
+      213: -3960265403415027132
+    second: teto_3
+  - first:
+      213: -8581428705916197080
+    second: teto_4
+  - first:
+      213: -8382338385555563242
+    second: teto_5
+  - first:
+      213: -192128679910978355
+    second: teto_6
+  - first:
+      213: -7051175691306510880
+    second: teto_7
+  - first:
+      213: -8770518795763107385
+    second: teto_8
+  - first:
+      213: -8527704853978823989
+    second: teto_9
+  - first:
+      213: 8489210999878869321
+    second: teto_10
+  - first:
+      213: -511905914249248205
+    second: teto_11
+  - first:
+      213: -2686524455153836438
+    second: teto_12
+  - first:
+      213: -8527710397707609109
+    second: teto_13
+  - first:
+      213: 740089112820797517
+    second: teto_14
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: teto_0
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 289
+        width: 164
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -308, y: 15}
+        - {x: -308, y: 56}
+        - {x: -144, y: 56}
+        - {x: -144, y: 15}
+      - - {x: -104, y: 15}
+        - {x: -104, y: 96}
+        - {x: -63, y: 96}
+        - {x: -63, y: 56}
+        - {x: 19, y: 56}
+        - {x: 19, y: 15}
+      - - {x: 59, y: 15}
+        - {x: 59, y: 56}
+        - {x: 140, y: 56}
+        - {x: 140, y: 96}
+        - {x: 182, y: 96}
+        - {x: 182, y: 15}
+      - - {x: 222, y: 15}
+        - {x: 222, y: 96}
+        - {x: 304, y: 96}
+        - {x: 304, y: 15}
+      - - {x: -144, y: -107}
+        - {x: -226, y: -107}
+        - {x: -226, y: -66}
+        - {x: -185, y: -66}
+        - {x: -185, y: -26}
+        - {x: -103, y: -26}
+        - {x: -103, y: -67}
+        - {x: -144, y: -67}
+      - - {x: -64, y: -108}
+        - {x: -63.99997, y: -66.000015}
+        - {x: -23, y: -66}
+        - {x: -23, y: -25}
+        - {x: 20, y: -25}
+        - {x: 20, y: -66}
+        - {x: 60, y: -66}
+        - {x: 60, y: -108}
+      - - {x: 140, y: -108}
+        - {x: 140, y: -67}
+        - {x: 100, y: -67}
+        - {x: 100, y: -25}
+        - {x: 182, y: -25}
+        - {x: 182, y: -66}
+        - {x: 223, y: -66}
+        - {x: 223, y: -108}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f7148be5e64094d0800000000000000
+      internalID: -3129923787709736968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_1
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 195
+        width: 123
+        height: 81
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c1ba47a335614190800000000000000
+      internalID: -7979985792199380538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_2
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 195
+        width: 123
+        height: 81
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f555c6225545ec80800000000000000
+      internalID: -8294146919592798734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_3
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 195
+        width: 82
+        height: 81
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 442ad25199f4a09c0800000000000000
+      internalID: -3960265403415027132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_4
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 72
+        width: 123
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 827668eee04a8e880800000000000000
+      internalID: -8581428705916197080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_5
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 68
+        width: 123
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61dd6dd56a3fbab80800000000000000
+      internalID: -8382338385555563242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_6
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 72
+        width: 123
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcccdbacbfb655df0800000000000000
+      internalID: -192128679910978355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_7
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 195
+        width: 164
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e55ec64111352e90800000000000000
+      internalID: -7051175691306510880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_8
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 236
+        width: 41
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c937aa9f9bd84680800000000000000
+      internalID: -8770518795763107385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_9
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 236
+        width: 42
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc2c735fd9187a980800000000000000
+      internalID: -8527704853978823989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_10
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 237
+        width: 41
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9416e173d6cbfc570800000000000000
+      internalID: 8489210999878869321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_11
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 195
+        width: 41
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33280ce784855e8f0800000000000000
+      internalID: -511905914249248205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_12
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 114
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6ed72aed3c87bad0800000000000000
+      internalID: -2686524455153836438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_13
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 114
+        width: 41
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: beb9b35339c77a980800000000000000
+      internalID: -8527710397707609109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: teto_14
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 114
+        width: 41
+        height: 40
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4051df7023554a00800000000000000
+      internalID: 740089112820797517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
