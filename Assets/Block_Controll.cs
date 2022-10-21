@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Block_Controll : MonoBehaviour
 {
     #region
-    private int[,] _table = new int[10, 22];
+    private int[,] _table = new int[10, 20];
     private int _tableX = 0;
     private int _tableY = 0;
     [SerializeField]
@@ -14,9 +14,13 @@ public class Block_Controll : MonoBehaviour
     private int _nextBlock1 = 0;
     private int _nextBlock2 = 0;
     private int _nextBlock3 = 0;
-    private GameObject _nextContllorBlock1;
-    private GameObject _nextContllorBlock2;
-    private GameObject _nextContiiolBlock3;
+    private GameObject _nextContllorBlock;
+    [SerializeField]
+    private Sprite[] _spriteBlock;
+    [SerializeField]
+    private Image _nextContllorBlock2;
+    [SerializeField]
+    private Image _nextContllorBlock3;
     private float _timeMove = 0;
     private float _playerY = 0;
     private float _playerX = 0;
@@ -32,6 +36,9 @@ public class Block_Controll : MonoBehaviour
     private int _newBlock = 7;
     private bool _isfallBlock = true;
     private int _columnCount = 0;
+    private int _score = 0;
+    [SerializeField]
+    private Text _scoreText;
     #endregion
 
     private void Awake()
@@ -60,19 +67,19 @@ public class Block_Controll : MonoBehaviour
         _nextBlock1 = Random.Range(0, 6);
         _nextBlock2 = Random.Range(0, 6);
         _nextBlock3 = Random.Range(0, 6);
-        _nextContllorBlock1 = Instantiate(_block[_nextBlock1], new Vector2(4, 0), Quaternion.identity);
-        _nextContllorBlock2 = Instantiate(_block[_nextBlock2], new Vector2(11, -1), Quaternion.identity);
-        _nextContiiolBlock3 = Instantiate(_block[_nextBlock3], new Vector2(11, -4), Quaternion.identity);
+        _nextContllorBlock = Instantiate(_block[_nextBlock1], new Vector2(4, -1), Quaternion.identity);
+        _nextContllorBlock2.sprite = _spriteBlock[_nextBlock2];
+        _nextContllorBlock3.sprite = _spriteBlock[_nextBlock3];
     }
 
 
     private void FixedUpdate()
     {
         _timeMove += Time.deltaTime;
-        if (_timeMove >= 1f && _isfallBlock)
+        if (_timeMove >= 0.1f && _isfallBlock)
         {
-            _playerX = _nextContllorBlock1.transform.position.x;
-            _playerY = _nextContllorBlock1.transform.position.y;
+            _playerX = _nextContllorBlock.transform.position.x;
+            _playerY = _nextContllorBlock.transform.position.y;
             _playerY = _playerY * -1;
             if (_nextBlock1 == _oBlock)
             {
@@ -109,7 +116,7 @@ public class Block_Controll : MonoBehaviour
             NewBlock();
         }
 
-        
+
 
     }
 
@@ -117,11 +124,10 @@ public class Block_Controll : MonoBehaviour
     {
         //操作されたら
         //Dは右矢印で右に移動
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && _isfallBlock)
         {
             if (_nextBlock1 == _oBlock)
             {
-                Debug.Log("右に移動");
                 oRBlock();
             }
             else if (_nextBlock1 == _lBlock)
@@ -150,9 +156,8 @@ public class Block_Controll : MonoBehaviour
             }
         }
         //Aか左矢印左に移動
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && _isfallBlock)
         {
-            Debug.Log("左に移動");
             if (_nextBlock1 == _oBlock)
             {
                 oLBlock();
@@ -183,7 +188,7 @@ public class Block_Controll : MonoBehaviour
             }
         }
         //スペースで回転
-        if (Input.GetKeyDown(KeyCode.Space))
+        if ((Input.GetKeyDown(KeyCode.Space)) && _isfallBlock)
         {
             if (_nextBlock1 == _oBlock)
             {
@@ -219,14 +224,12 @@ public class Block_Controll : MonoBehaviour
     //次のブロックを出す
     private void NewBlock()
     {
-        _nextContllorBlock2.transform.position = new Vector2(4, 0);
-        _nextContllorBlock1 = _nextContllorBlock2;
-        _nextContiiolBlock3.transform.position = new Vector2(11, -1);
-        _nextContllorBlock2 = _nextContiiolBlock3;
+        _nextContllorBlock = Instantiate(_block[_nextBlock2], new Vector2(4, -1), Quaternion.identity);
         _nextBlock1 = _nextBlock2;
         _nextBlock2 = _nextBlock3;
         _nextBlock3 = Random.Range(0, 6);
-        _nextContiiolBlock3 = Instantiate(_block[_nextBlock3], new Vector2(11, -4), Quaternion.identity);
+        _nextContllorBlock2.sprite = _spriteBlock[_nextBlock2];
+        _nextContllorBlock3.sprite = _spriteBlock[_nextBlock3];
         _isfallBlock = true;
     }
 
@@ -237,26 +240,17 @@ public class Block_Controll : MonoBehaviour
     private void oBlock()
     {
         //時間経過で落ちていく
-        if (_table[(int)_playerX, (int)_playerY + 2] == 0 && _table[(int)_playerX + 1, (int)_playerY + 2] == 0)
+        if (_playerY <= 18 && (_table[(int)_playerX, (int)_playerY + 1] == 0 && _table[(int)_playerX + 1, (int)_playerY + 1] == 0))
         {
-            _nextContllorBlock1.transform.position = new Vector2(_nextContllorBlock1.transform.position.x, _nextContllorBlock1.transform.position.y - 1);
-            //底に着いたら
-            if (_nextContllorBlock1.transform.position.y <= -18)
-            {
-                _table[(int)_playerX, (int)_playerY + 1] = 1;
-                _table[(int)_playerX + 1, (int)_playerY + 1] = 1;
-                _table[(int)_playerX, (int)_playerY + 2] = 1;
-                _table[(int)_playerX + 1, (int)_playerY + 2] = 1;
-                _isfallBlock = false;
-            }
+            _nextContllorBlock.transform.position = new Vector2(_nextContllorBlock.transform.position.x, _nextContllorBlock.transform.position.y - 1);
         }
         //他のオブジェクトにぶつかったら止まる
-        else if (_table[(int)_playerX, (int)_playerY + 2] == 1  || _table[(int)_playerX + 1, (int)_playerY + 2] == 1)
+        else if (_playerY >= 19 || (_table[(int)_playerX, (int)_playerY + 1] == 1 || _table[(int)_playerX + 1, (int)_playerY + 1] == 1))
         {
             _table[(int)_playerX, (int)_playerY] = 1;
             _table[(int)_playerX + 1, (int)_playerY] = 1;
-            _table[(int)_playerX, (int)_playerY + 1] = 1;
-            _table[(int)_playerX + 1, (int)_playerY + 1] = 1;
+            _table[(int)_playerX, (int)_playerY - 1] = 1;
+            _table[(int)_playerX + 1, (int)_playerY - 1] = 1;
             _isfallBlock = false;
         }
         _timeMove = 0f;
@@ -270,7 +264,7 @@ public class Block_Controll : MonoBehaviour
         }
         else if (_table[(int)_playerX + 2, (int)_playerY] == 0)
         {
-            _nextContllorBlock1.transform.position = new Vector2(_nextContllorBlock1.transform.position.x + 1, _nextContllorBlock1.transform.position.y);
+            _nextContllorBlock.transform.position = new Vector2(_nextContllorBlock.transform.position.x + 1, _nextContllorBlock.transform.position.y);
         }
     }
 
@@ -282,7 +276,7 @@ public class Block_Controll : MonoBehaviour
         }
         else if (_table[(int)_playerX - 1, (int)_playerY] == 0)
         {
-            _nextContllorBlock1.transform.position = new Vector2(_nextContllorBlock1.transform.position.x - 1, _nextContllorBlock1.transform.position.y);
+            _nextContllorBlock.transform.position = new Vector2(_nextContllorBlock.transform.position.x - 1, _nextContllorBlock.transform.position.y);
         }
     }
     #endregion
@@ -295,11 +289,11 @@ public class Block_Controll : MonoBehaviour
         {
             while (_tableX >= 0)
             {
-                if(_table[_tableX, _tableY] == 1)
+                if (_table[_tableX, _tableY] == 1)
                 {
                     _columnCount++;
                     ClearBlock2();
-                    
+
                 }
                 _tableX--;
             }
@@ -310,20 +304,47 @@ public class Block_Controll : MonoBehaviour
     }
     private void ClearBlock2()
     {
-        if(_columnCount >= 10)
+        if (_columnCount >= 10)
         {
             int changeTableX = 9;
             int changeTableY = _tableY;
+            GameObject[] killblock = GameObject.FindGameObjectsWithTag("block");
+            int searchBlock = killblock.Length - 1;
+            while (changeTableX >= 0)
+            {
+                while (searchBlock >= 0)
+                {
+                    if (killblock[searchBlock].transform.position.x == changeTableX && killblock[searchBlock].transform.position.y == _tableY * -1)
+                    {
+                        Destroy(killblock[searchBlock]);
+                    }
+                    searchBlock--;
+                }
+                searchBlock = killblock.Length - 1;
+                changeTableX--;
+            }
+            changeTableX = 9;
             while (changeTableY > 0)
             {
                 while (changeTableX >= 0)
                 {
-                    _table[changeTableX , changeTableY] = _table[changeTableX, changeTableY - 1];
+                    while (searchBlock >= 0)
+                    {
+                        if (killblock[searchBlock].transform.position.y > _tableY * -1)
+                        {
+                            killblock[searchBlock].transform.position = new Vector2(killblock[searchBlock].transform.position.x, killblock[searchBlock].transform.position.y - 1f);
+                        }
+                        searchBlock--;
+                    }
+                    _table[changeTableX, changeTableY] = _table[changeTableX, changeTableY - 1];
                     changeTableX--;
                 }
                 changeTableY--;
                 changeTableX = 9;
             }
+            _tableY++;
+            _score = _score + 100;
+            _scoreText.text = _score.ToString();
         }
     }
 }
