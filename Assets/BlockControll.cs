@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityRandom = UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class BlockControll : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class BlockControll : MonoBehaviour
     private int _nextBlock2 = 0;
     private int _nextBlock3 = 0;
     //操作するブロック
-    private GameObject _ContllorBlock;
+    private GameObject _contllorBlock;
     //次のブロックの形の画像の配列
     [SerializeField]
     private Sprite[] _spriteBlock;
@@ -225,14 +226,24 @@ public class BlockControll : MonoBehaviour
     //当たり判定の座標指定用変数
     private float _decidionX = 0;
     private float _decidionY = 0;
-    
+    //ブロックの動く感覚の時間
+    private float _fallTime = 1f;
+
+    //ゲームオーバー時に消すキャンバスと表示するキャンバス
+    [SerializeField]
+    private GameObject _scoreCanvas;
+    [SerializeField]
+    private GameObject _GameoverCanvas;
+    [SerializeField]
+    private Text _lastScoreText;
+    //配列確認用テキスト 
     [SerializeField]
     private Text[] _texts; 
     #endregion
 
     private void Awake()
     {
-        kindSet();
+        KindSet();
         //配列の初期化
         _fieldX = 0;
         _fieldY = 0;
@@ -292,23 +303,27 @@ public class BlockControll : MonoBehaviour
         _timeMoveHorizontal += Time.deltaTime;
         //指定の時間がたったらブロックが一つ下がる
         //ぶつかる位置が違うのでブロックの形に合わせてメソッドを呼び出す
-        if (_timeMove >= 0.1f && _isfallBlock)
+        if (_timeMove >= _fallTime && _isfallBlock)
         {
             //プレイヤーの座標を二次配列検索用に変数に格納
             //Ｙ座標はマイナスに反転してるので-1をかける
-            _playerX = _ContllorBlock.transform.position.x;
-            _playerY = _ContllorBlock.transform.position.y;
+            _playerX = _contllorBlock.transform.position.x;
+            _playerY = _contllorBlock.transform.position.y;
             _playerY = _playerY * -1;
-            fallBlock();
+            FallBlock();
         }
         //ブロックが底に着くかぶつかった際に処理を行う
         else if (_isfallBlock == false)
         {
+            //一列揃ったかを確認する
             ClearBlock();
             //スポーンの場所にブロックがあったらゲームオーバー
             if(_field[(int)_respronPlayerY, (int)_respronPlayerX] == 1 || _field[(int)_respronPlayerY, (int)_respronPlayerX + 1] == 1)
             {
-                Debug.Log("ゲームオーバー");
+                //スコアのキャンバスを消してゲームオーバー用のキャンバスを表示する
+                _lastScoreText.text = _score.ToString();
+                _GameoverCanvas.SetActive(true);
+                _scoreCanvas.SetActive(false);
                 Time.timeScale = 0;
             }
             ListOutPut2(_field);
@@ -321,14 +336,14 @@ public class BlockControll : MonoBehaviour
         //操作されたら
         //Dは右矢印で右に移動
         //ブロックの形に合わせたメソッドを呼び出す
-        if (Input.GetAxis("Horizontal") > 0 && _isfallBlock && _timeMoveHorizontal >= 0.3f)
+        if (Input.GetAxis("Horizontal") > 0 && _isfallBlock && _timeMoveHorizontal >= 0.5f)
         {
             RightBlock();
             _timeMoveHorizontal = 0;
         }
         //Aか左矢印左に移動
         //ブロックの形に合わせたメソッドを呼び出す
-        if (Input.GetAxis("Horizontal") < 0 && _isfallBlock && _timeMoveHorizontal >= 0.3f)
+        if (Input.GetAxis("Horizontal") < 0 && _isfallBlock && _timeMoveHorizontal >= 0.5f)
         {
             LeftBlock();
             _timeMoveHorizontal = 0;
@@ -338,6 +353,15 @@ public class BlockControll : MonoBehaviour
         if (Input.GetButtonDown("Jump") && _isfallBlock)
         {
             RotateBlock();
+        }
+        //下が押されてたら落ちる感覚を短くする
+        if (Input.GetAxis("Vertical") < 0)
+        {
+            _fallTime = 0.1f;
+        }
+        else if (_fallTime != 1)
+        {
+            _fallTime = 1f;
         }
     }
 
@@ -371,7 +395,7 @@ public class BlockControll : MonoBehaviour
     }
 
     //リストに配列を順番に入れる
-    public void kindSet()
+    private void KindSet()
     {
         _Decision.Add(_oDecision);
         _Decision.Add(_lDecision);
@@ -403,7 +427,7 @@ public class BlockControll : MonoBehaviour
             _nextBlock3 = UnityRandom.Range(0, 7);
         }
         //その後二つまでのブロックの表示
-        _ContllorBlock = Instantiate(_block[_nextBlock1], new Vector2(_respronPlayerX, _respronPlayerY), Quaternion.identity);
+        _contllorBlock = Instantiate(_block[_nextBlock1], new Vector2(_respronPlayerX, _respronPlayerY), Quaternion.identity);
         _nextContllorBlock.sprite = _spriteBlock[_nextBlock2];
         _nextContllorBlock2.sprite = _spriteBlock[_nextBlock3];
         //ブロックが落ち始めるように trueにする
@@ -412,8 +436,11 @@ public class BlockControll : MonoBehaviour
 
     //fallBlockとfallBlock2で自然落下させる
     //ぶつかるまで下に下げる
-    private void fallBlock()
+    private void FallBlock()
     {
+        _playerX = _contllorBlock.transform.position.x;
+        _playerY = _contllorBlock.transform.position.y;
+        _playerY = _playerY * -1;
         _decidionY = 0;
         _decidionX = 0;
         while (_decidionY < _Decision[_nextBlock1].GetLength(1))
@@ -425,7 +452,7 @@ public class BlockControll : MonoBehaviour
                      && _field[(int)_playerY + (int)_decidionY + 1, (int)_playerX + (int)_decidionX] == 1)
 
                 {
-                    fallBlock2();
+                    FallBlock2();
                     return;
                 }
                 _decidionX++;
@@ -434,11 +461,11 @@ public class BlockControll : MonoBehaviour
             _decidionX = 0;
         }
         //ぶつからない場合は１マス下げる
-        _ContllorBlock.transform.position = new Vector2(_ContllorBlock.transform.position.x, _ContllorBlock.transform.position.y - 1);
+        _contllorBlock.transform.position = new Vector2(_contllorBlock.transform.position.x, _contllorBlock.transform.position.y - 1);
         _timeMove = 0f;
 
     }
-    private void fallBlock2()
+    private void FallBlock2()
     {
         //ぶつかった際はその座標に配列の中身を転写する
         _isfallBlock = false;
@@ -463,6 +490,9 @@ public class BlockControll : MonoBehaviour
     //ブロックを右に移動させる
     private void RightBlock()
     {
+        _playerX = _contllorBlock.transform.position.x;
+        _playerY = _contllorBlock.transform.position.y;
+        _playerY = _playerY * -1;
         _decidionY = 0;
         _decidionX = 0;
         while (_decidionY < _Decision[_nextBlock1].GetLength(1))
@@ -474,7 +504,7 @@ public class BlockControll : MonoBehaviour
                      && _field[(int)_playerY + (int)_decidionY, (int)_playerX + (int)_decidionX + 1] == 1)
 
                 {
-                    _timeMove = 0f;
+                    _timeMoveHorizontal = 0f;
                     return;
                 }
                 _decidionX++;
@@ -482,13 +512,15 @@ public class BlockControll : MonoBehaviour
             _decidionY++;
             _decidionX = 0;
         }
-        _ContllorBlock.transform.position = new Vector2(_ContllorBlock.transform.position.x + 1, _ContllorBlock.transform.position.y);
-        _timeMove = 0f;
+        _contllorBlock.transform.position = new Vector2(_contllorBlock.transform.position.x + 1, _contllorBlock.transform.position.y);
     }
 
     //ブロックを左に移動させる
     private void LeftBlock()
     {
+        _playerX = _contllorBlock.transform.position.x;
+        _playerY = _contllorBlock.transform.position.y;
+        _playerY = _playerY * -1;
         _decidionY = 0;
         _decidionX = 0;
         while (_decidionY < _Decision[_nextBlock1].GetLength(1))
@@ -500,7 +532,7 @@ public class BlockControll : MonoBehaviour
                      && _field[(int)_playerY + (int)_decidionY, (int)_playerX + (int)_decidionX - 1] == 1)
 
                 {
-                    _timeMove = 0f;
+                    _timeMoveHorizontal = 0f;
                     return;
                 }
                 _decidionX++;
@@ -508,13 +540,15 @@ public class BlockControll : MonoBehaviour
             _decidionY++;
             _decidionX = 0;
         }
-        _ContllorBlock.transform.position = new Vector2(_ContllorBlock.transform.position.x - 1, _ContllorBlock.transform.position.y);
-        _timeMove = 0f;
+        _contllorBlock.transform.position = new Vector2(_contllorBlock.transform.position.x - 1, _contllorBlock.transform.position.y);
     }
     
     //ブロックを回転させる
     private void RotateBlock()
     {
+        _playerX = _contllorBlock.transform.position.x;
+        _playerY = _contllorBlock.transform.position.y;
+        _playerY = _playerY * -1;
         _playerRotate++;
         //回転は４種類しかないので４になったら０に戻す
         //またOブロックは回転がないので０固定にする
@@ -524,11 +558,29 @@ public class BlockControll : MonoBehaviour
         }
         //プレイヤーの子オブジェクトを検索し取得する
         //回転時に子オブジェクトを動かすために配列に入れておく
-        for (_childrenCount = 0; _childrenCount < _ContllorBlock.transform.childCount; _childrenCount++)
+        for (_childrenCount = 0; _childrenCount < _contllorBlock.transform.childCount; _childrenCount++)
         {
-            _moveBlock[_childrenCount] = _ContllorBlock.transform.GetChild(_childrenCount);
+            _moveBlock[_childrenCount] = _contllorBlock.transform.GetChild(_childrenCount);
         }
+        _decidionY = 0;
+        _decidionX = 0;
+        while (_decidionY < _Decision[_nextBlock1].GetLength(1))
+        {
+            while (_decidionX < _Decision[_nextBlock1].GetLength(2))
+            {
+                //回転させたときにに配列を照らし合わせぶつかるかを確認する
+                if ((_field[(int)_playerY + (int)_decidionY, (int)_playerX + (int)_decidionX] == _Decision[_nextBlock1][_playerRotate, (int)_decidionY, (int)_decidionX])
+                     && _field[(int)_playerY + (int)_decidionY, (int)_playerX + (int)_decidionX] == 1)
 
+                {
+                    RotateBlock2();
+                    return;
+                }
+                _decidionX++;
+            }
+            _decidionY++;
+            _decidionX = 0;
+        }
         _decidionY = 0;
         _decidionX = 0;
         int moveChildren = 0;
@@ -549,6 +601,98 @@ public class BlockControll : MonoBehaviour
         }
     }
 
+    //ブロックを回転させた際に右に１マス動かした場合ぶつからないか
+    private void RotateBlock2()
+    {
+        _decidionY = 0;
+        _decidionX = 0;
+        while (_decidionY < _Decision[_nextBlock1].GetLength(1))
+        {
+            while (_decidionX < _Decision[_nextBlock1].GetLength(2))
+            {
+                //右に1マス動かした場合ぶつからないか
+                if ((_field[(int)_playerY + (int)_decidionY, (int)_playerX + (int)_decidionX + 1] == _Decision[_nextBlock1][_playerRotate, (int)_decidionY, (int)_decidionX])
+                     && _field[(int)_playerY + (int)_decidionY, (int)_playerX + (int)_decidionX + 1] == 1)
+
+                {
+                    RotateBlock3();
+                    return;
+                }
+                _decidionX++;
+            }
+            _decidionY++;
+            _decidionX = 0;
+        }
+        _decidionY = 0;
+        _decidionX = 0;
+        int moveChildren = 0;
+        //右に１マス動かした場合当たらないので１マスずらす
+        _contllorBlock.transform.position = new Vector2(_contllorBlock.transform.position.x + 1, _contllorBlock.transform.position.y);
+        //ブロックごとに作った配列に照らし合わせて1の部分にブロックを配置する
+        while (_decidionY < _Decision[_nextBlock1].GetLength(1))
+        {
+            while (_decidionX < _Decision[_nextBlock1].GetLength(2))
+            {
+                if (_Decision[_nextBlock1][_playerRotate, (int)_decidionY, (int)_decidionX] == 1)
+                {
+                    _moveBlock[moveChildren].transform.localPosition = new Vector2(_decidionX, _decidionY * -1);
+                    moveChildren++;
+                }
+                _decidionX++;
+            }
+            _decidionY++;
+            _decidionX = 0;
+        }
+    }
+    //ブロックを回転させた際に左に１マス動かした場合ぶつからないか
+    private void RotateBlock3()
+    {
+        _decidionY = 0;
+        _decidionX = 0;
+        while (_decidionY < _Decision[_nextBlock1].GetLength(1))
+        {
+            while (_decidionX < _Decision[_nextBlock1].GetLength(2))
+            {
+                //右に1マス動かした場合ぶつからないか
+                if ((_field[(int)_playerY + (int)_decidionY, (int)_playerX + (int)_decidionX - 1] == _Decision[_nextBlock1][_playerRotate, (int)_decidionY, (int)_decidionX])
+                     && _field[(int)_playerY + (int)_decidionY, (int)_playerX + (int)_decidionX - 1] == 1)
+
+                {
+                    _playerRotate--;
+                    if (_playerRotate < 0)
+                    {
+                        _playerRotate = 0;
+                    }
+                    return;
+                }
+                _decidionX++;
+            }
+            _decidionY++;
+            _decidionX = 0;
+        }
+        _decidionY = 0;
+        _decidionX = 0;
+        int moveChildren = 0;
+        //右に１マス動かした場合当たらないので１マスずらす
+        _contllorBlock.transform.position = new Vector2(_contllorBlock.transform.position.x - 1, _contllorBlock.transform.position.y);
+        //ブロックごとに作った配列に照らし合わせて1の部分にブロックを配置する
+        while (_decidionY < _Decision[_nextBlock1].GetLength(1))
+        {
+            while (_decidionX < _Decision[_nextBlock1].GetLength(2))
+            {
+                if (_Decision[_nextBlock1][_playerRotate, (int)_decidionY, (int)_decidionX] == 1)
+                {
+                    _moveBlock[moveChildren].transform.localPosition = new Vector2(_decidionX, _decidionY * -1);
+                    moveChildren++;
+                }
+                _decidionX++;
+            }
+            _decidionY++;
+            _decidionX = 0;
+        }
+    }
+
+    //1列ブロックがそろったかを確認する
     private void ClearBlock()
     {
         //配列の終番をいれる　要素数-1
@@ -631,4 +775,13 @@ public class BlockControll : MonoBehaviour
             _scoreText.text = _score.ToString();
         }
     }
+
+    //ゲームオーバー時に再読み込みする
+    public void Reroad()
+    {
+        Scene loadScene = SceneManager.GetActiveScene();
+        Time.timeScale = 1;
+        SceneManager.LoadScene(loadScene.name);
+    }
+
 }

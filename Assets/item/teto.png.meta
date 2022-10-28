@@ -47,6 +47,9 @@ TextureImporter:
   - first:
       213: 740089112820797517
     second: teto_14
+  - first:
+      213: -7998309539285742335
+    second: teto_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -203,9 +206,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 216
-        y: 195
+        y: 196
         width: 123
-        height: 81
+        height: 80
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,9 +269,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 94
-        y: 72
+        y: 73
         width: 123
-        height: 82
+        height: 81
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -286,10 +289,10 @@ TextureImporter:
       name: teto_5
       rect:
         serializedVersion: 2
-        x: 262
-        y: 68
-        width: 123
-        height: 82
+        x: 257
+        y: 73
+        width: 122
+        height: 80
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -308,9 +311,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 420
-        y: 72
-        width: 123
-        height: 83
+        y: 73
+        width: 122
+        height: 81
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
